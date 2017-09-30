@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>初めてのJavaScript</title>
-  </head>
-  <body>
-    おはよ
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>初めてのJavaScript</title>
+</head>
+<body>
+  おはよ
+</body>
+<script type="text/javascript">
+function FizzBuzz (qiita) {
+ var i;
+ for (i = 1; i <= qiita; i++) {
+  console.log(i % 3 == 0 ? (i % 5 == 0 ? 'FizzBuzz' : 'Fizz') : (i % 5 == 0 ? 'Buzz' : i));
+ }
+}
+FizzBuzz(100)
+</script>
 </html>
