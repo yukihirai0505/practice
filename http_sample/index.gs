@@ -8,6 +8,7 @@ function getJson(url) {
   return JSON.parse(response);
 }
 
+// Test 0: api parse test
 function test() {
   var data = getJson("https://yabaiwebyasan.com/test.json");
   Logger.log(data);
@@ -16,7 +17,7 @@ function test() {
 
 // First you should set header column. If you don't set it, you may get error.
 
-// Test 1
+// Test 1: twitter api parse test
 function setTwitterData() {
   var data = getJson("http://api.yabaiwebyasan.com/tweets/yabaiwebyasan").map(function (e) {
     return [e.text, new Date(e.created_at), e.media_urls.toString()];
@@ -27,7 +28,7 @@ function setTwitterData() {
   TWITTER_SHEET.getRange(2, 1, data.length, 3).setValues(data);
 }
 
-// Test 2
+// Test 2: instagram api parse test
 function setInstaramData() {
   var data = getJson("https://api.yabaiwebyasan.com/v1/instagram/users/i_do_not_like_fashion").media.nodes.map(function (e) {
     return ['=IMAGE("'+ e.thumbnailSrc + '")', e.caption, e.likes.count, e.comments.count];
@@ -38,7 +39,7 @@ function setInstaramData() {
   INSTAGRAM_SHEET.getRange(2, 1, data.length, 4).setValues(data);
 }
 
-// Test 3
+// Test 3: instagram html parse test
 function setInstagramCrawlData() {
   var targetHashTag = "idonotlikefashion";
   var url = "https://www.instagram.com/explore/tags/" + targetHashTag;
