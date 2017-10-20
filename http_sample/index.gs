@@ -14,6 +14,8 @@ function test() {
   Logger.log(data.price);
 }
 
+// First you should set header column. If you don't set it, you may get error.
+
 // Test 1
 function setTwitterData() {
   var data = getJson("http://api.yabaiwebyasan.com/tweets/yabaiwebyasan").map(function (e) {
@@ -38,5 +40,17 @@ function setInstaramData() {
 
 // Test 3
 function setInstagramCrawlData() {
-
+  var targetHashTag = "idonotlikefashion";
+  var url = "https://www.instagram.com/explore/tags/" + targetHashTag;
+  var response = UrlFetchApp.fetch(url).getContentText('UTF-8');
+  var jsonData = JSON.parse(response.match(/<script type="text\/javascript">window\._sharedData =([\s\S]*?);<\/script>/i)[1]);
+  var tagData = jsonData.entry_data.TagPage[0].tag;
+  Logger.log(tagData);
+  var data = tagData.top_posts.nodes.map(function(e) {
+    return ['=IMAGE("'+ e.thumbnail_src + '")', e.caption, e.likes.count, e.comments.count];
+  });
+  // clear all data
+  INSTAGRAM_CRAWL_SHEET.getRange(2, 1, INSTAGRAM_CRAWL_SHEET.getLastRow(), 4).clear();
+  // set tweet values
+  INSTAGRAM_CRAWL_SHEET.getRange(2, 1, data.length, 4).setValues(data);
 }
